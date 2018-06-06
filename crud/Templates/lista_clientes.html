@@ -1,0 +1,36 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+		 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+		 		<link rel="stylesheet" href="static/stylesheets/index.css">
+		<title> Lista de Clientes</title>
+	</head>
+	<body>
+		<h1> Lista de Clientes</h1>
+		<hr>
+		<table border="4" bgcolor="#CEECF5" align="center" rules="all" frame="border" cellpadding="20px"> 
+			<tr>
+				<td>ID</td>
+				<td>Nome</td>
+				<td>cpf</td>
+				<td>Excluir</td>
+				<td>Atualizar</td>
+			</tr>
+			{% for clientes in cliente %}
+			<tr>
+				<td>{{ clientes._id  }}</td>
+				<td>{{ clientes.nome}}</td>
+				<td>{{ clientes.cpf}}</td>
+
+
+				<td> <a href="/excluir_cliente/{{ clientes._id}}"> <img src="static/images/lixeira.png" alt="Excluir" style="width:30px; height: 30px"> </a> </td>
+				<td><a href="/atualizar_cliente/{{ clientes._id}}">  <img src="static/images/editar.png" alt="pesquisa" style="width:60px; height: 60px"> </a></td>
+
+			</tr>
+			{% endfor %}
+		</table>
+		<a href="/index"><img src="static/images/voltar.png" alt="voltar" style="width:90px; height: 30px"> </a></a>
+	</body>
+</html>

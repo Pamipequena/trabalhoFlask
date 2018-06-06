@@ -1,0 +1,38 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+		 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+		 		<link rel="stylesheet" href="static/stylesheets/index.css">
+		<title> Lista de Funcionários</title>
+	</head>
+	<body>
+		<h1> Lista de Funcionários</h1>
+		<hr>
+	<table border="4" bgcolor="#CEECF5" align="center" rules="all" frame="border" cellpadding="20px"> 
+			<tr>
+				<td>ID</td>
+				<td>Matricula</td>
+				<td>Nome</td>
+				<td>Senha</td>
+				<td>Excluir</td>
+				<td>Atualizar</td>
+			</tr>
+			{% for pessoa in pessoas %}
+			<tr>
+				<td>{{ pessoa._id  }}</td>
+				<td>{{ pessoa.matricula}}</td>
+				<td>{{ pessoa.nome}}</td>
+				<td>{{ pessoa.senha}}</td>
+
+
+				<td> <a href="/excluir/{{ pessoa._id}}"> <img src="static/images/lixeira.png" alt="Excluir" style="width:60px; height: 60px"> </a> </td>
+				<td><a href="/atualizar/{{ pessoa._id}}">  <img src="static/images/editar.png" alt="pesquisa" style="width:60px; height: 60px"> </a></td>
+
+			</tr>
+			{% endfor %}
+		</table>
+		<a href="/index"><img src="static/images/voltar.png" alt="pesquisa" style="width:60px; height: 30px"> </a></a>
+	</body>
+</html>

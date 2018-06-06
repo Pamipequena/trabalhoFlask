@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		 		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+		 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+		 		<link rel="stylesheet" href="static/stylesheets/index.css">
+		 		<link rel="stylesheet" type="text/css"  href="estilo.css" />
+
+	</head>
+	<body>
+		<h1>Cadastro de Projetos</h1>
+		<hr>
+		<form action = "{{ url_for('cadastro_projetos')}}" method="POST">
+			<table> 
+				<tr>
+					<td>Código do Projeto: </td>
+					<td><input type="text" name= "codProjeto"></td>
+				</tr>
+				<tr> 
+					<td>Nome do Projeto:</td>
+					<td><input type="text" name= "nomeProjeto"></td>
+				</tr>
+
+				<tr> 
+					<td>Nome do Cliente: </td>
+					<td><input type="text" name= "clienteNome"></td>
+				</tr>
+				<tr> 
+					<td>Descrição do Projeto:</td>
+					<td><input type="text" name= "descricaoProjeto"></td>
+				</tr>
+
+			</table><br>
+			<a href="/index"><img src="static/images/voltar.png" alt="voltar" style="width:90px; height: 30px"> </a>
+			<input type="submit" value="Cadastrar" style="color: #0404B4">		
+
+
+		</form>
+
+	</body>
+
+</html>

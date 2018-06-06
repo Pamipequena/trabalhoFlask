@@ -1,0 +1,40 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+		 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+		 		<link rel="stylesheet" href="static/stylesheets/index.css">
+		<title> Lista de Projetos</title>
+	</head>
+	<body>
+		<h1> Lista de Projetos</h1>
+		<hr>
+		<table border="4" bgcolor="#CEECF5" align="center" rules="all" frame="border" cellpadding="20px" > 
+			<tr >
+				<td>ID</td>
+				<td>codProjeto</td>
+				<td>nomeProjeto</td>
+				<td>clienteNome</td>
+				<td>descricaoProjeto</td>
+				<td>Excluir</td>
+				<td>Atualizar</td>
+			</tr>
+			{% for projeto in projetos %}
+			<tr>
+				<td>{{ projeto._id  }}</td>
+				<td>{{ projeto.codProjeto}}</td>
+				<td>{{ projeto.nomeProjeto}}</td>
+				<td>{{ projeto.clienteNome}}</td>
+				<td>{{ projeto.descricaoProjeto}}</td>
+
+
+				<td> <a href="/excluir_projeto/{{ projeto._id}}"> <img src="static/images/lixeira.png" alt="Excluir" style="width:35px; height: 35px"> </a> </td>
+				<td><a href="/atualizar_projeto/{{ projeto._id}}">  <img src="static/images/editar.png" alt="pesquisa" style="width:35px; height: 35px"> </a></td>
+
+			</tr>
+			{% endfor %}
+		</table>
+		<a href="/index"><img src="static/images/voltar.png" alt="voltar" style="width:90px; height: 30px"> </a></a>
+	</body>
+</html>

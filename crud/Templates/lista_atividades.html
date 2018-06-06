@@ -1,0 +1,35 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+		 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+		 		<link rel="stylesheet" href="static/stylesheets/index.css">
+	</head>
+	<body>
+		<h1> Lista de Atividades</h1>
+		<hr>
+		<table border="4" bgcolor="#CEECF5" align="center" rules="all" frame="border" cellpadding="20px"> 
+			<tr>
+				<td>ID</td>
+				<td>codAtividade</td>
+				<td>descricao</td>
+				<td>Excluir</td>
+				<td>Atualizar</td>
+			</tr>
+			{% for atividade in atividades %}
+			<tr>
+				<td>{{ atividade._id  }}</td>
+				<td>{{ atividade.codAtividade}}</td>
+				<td>{{ atividade.descricao}}</td>
+
+
+				<td> <a href="/excluir_atividade/{{ atividade._id}}"> <img src="static/images/lixeira.png" alt="Excluir" style="width:35px; height: 35px"> </a> </td>
+				<td><a href="/atualizar_atividade/{{ atividade._id}}">  <img src="static/images/editar.png" alt="pesquisa" style="width:35px; height: 35px"> </a></td>
+
+			</tr>
+			{% endfor %}
+		</table>
+		<a href="/index"><img src="static/images/voltar.png" alt="voltar" style="width:90px; height: 30px"> </a></a>
+	</body>
+</html>

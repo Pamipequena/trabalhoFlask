@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		 		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+		 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+		 		<link rel="stylesheet" href="static/stylesheets/index.css">
+		 		<link rel="stylesheet" type="text/css"  href="estilo.css" />
+		<title> Página Inicial </title>
+	</head>
+	<body>
+		<h1>Cadastro de Clientes</h1>
+		<hr>
+		<form action = "{{ url_for('cadastro_clientes')}}" method="POST">
+			<table> 
+				<tr>
+					<td>Nome do Cliente: </td>
+					<td><input type="text" name= "nome"></td>
+				</tr>
+				<tr> 
+					<td>CPF/CNPJ: </td>
+					<td><input type="text" name= "cpf"></td>
+				</tr>
+				
+
+			</table><br>
+			<a href="/index"><img src="static/images/voltar.png" alt="voltar" style="width:90px; height: 30px"> </a>
+			<input type="submit" value="Cadastrar" style="color: #0404B4">			
+		</form>
+
+	</body>
+
+</html>

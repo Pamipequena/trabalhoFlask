@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title> Atualizar</title>
+	</head>
+	<body>
+		<h1> Atualizar </h1>
+		<hr>
+		<form action = "" method="POST">
+			<table> 
+				<tr> 
+					<td>Matricula</td>
+					<td><input type="text" name= "matricula" value = "{{ pessoa.matricula }}"></td>
+				</tr>
+				<tr> 
+					<td>Nome</td>
+					<td><input type="text" name= "nome" value = "{{ pessoa.nome }}"></td>
+				</tr>
+
+				<tr> 
+					<td>Senha</td>
+					<td><input type="text" name= "senha" value = "{{ pessoa.senha }}"></td>
+				</tr>
+
+			</table><br>
+			<input type="submit" value="Atualizar Dados">
+			<a href="/index">Voltar</a>
+			
+		</form>
+
+	</body>
+
+</html>
