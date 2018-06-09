@@ -5,32 +5,28 @@
 		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 		 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 		 		<link rel="stylesheet" href="static/stylesheets/index.css">
-		<title> Lista de Projetos</title>
+		<title> Vinculo ProjetoxFuncionarios</title>
 	</head>
 	<body>
-		<h1> Lista de Projetos</h1>
+		<h1>  Vinculo ProjetoxFuncionarios</h1>
 		<hr>
 		<table border="4" bgcolor="#CEECF5" align="center" rules="all" frame="border" cellpadding="20px" > 
 			<tr >
 				<td>ID</td>
-				<td>codProjeto</td>
+				<td>nomeFuncionario</td>
 				<td>nomeProjeto</td>
-				<td>clienteNome</td>
-				<td>descricaoProjeto</td>
 				<td>Excluir</td>
 				<td>Atualizar</td>
 			</tr>
-			{% for projeto in projetos %}
+			{% for vinculo in vinculos %}
 			<tr>
-				<td>{{ projeto._id  }}</td>
-				<td>{{ projeto.codProjeto}}</td>
-				<td>{{ projeto.nomeProjeto}}</td>
-				<td>{{ projeto.clienteNome}}</td>
-				<td>{{ projeto.descricaoProjeto}}</td>
+				<td>{{ vinculo._id  }}</td>
+				<td>{{ vinculo.nomeFuncionario}}</td>
+				<td>{{ vinculo.nomeProjeto}}</td>
 
 
-				<td> <a href="/excluir_projeto/{{ projeto._id}}"> <img src="static/images/lixeira.png" alt="Excluir" style="width:35px; height: 35px"> </a> </td>
-				<td><a href="/atualizar_projeto/{{ projeto._id}}">  <img src="static/images/editar.png" alt="pesquisa" style="width:35px; height: 35px"> </a></td>
+				<td> <a href="/excluir_vinculo/{{ vinculo._id}}"> <img src="static/images/lixeira.png" alt="Excluir" style="width:35px; height: 35px"> </a> </td>
+				<td><a href="/atualizar_vinculo/{{ vinculo._id}}">  <img src="static/images/editar.png" alt="pesquisa" style="width:35px; height: 35px"> </a></td>
 
 			</tr>
 			{% endfor %}

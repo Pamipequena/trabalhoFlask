@@ -72,6 +72,7 @@ class Pessoa(db.Model):
 	matricula = db.Column(db.String)
 	nome = db.Column(db.String)
 	senha= db.Column(db.String)
+	funcionario = db.relationship('Vinculo', backref = 'users', lazy = True)
 
 	def __init__(self, matricula, nome, senha):
 		self.matricula = matricula
@@ -146,6 +147,7 @@ class Clientes(db.Model):
 	_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	nome = db.Column(db.String)
 	cpf= db.Column(db.String)
+	projeto = db.relationship('Projeto', backref = 'client', lazy = True)
 
 	def __init__(self, nome, cpf):
 		self.nome = nome
@@ -216,8 +218,10 @@ class Projeto(db.Model):
 	_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	codProjeto = db.Column(db.String)
 	nomeProjeto = db.Column(db.String)
-	clienteNome = db.Column(db.String) ### VER COMO FAZER
+	clienteNome = db.Column(db.Integer, db.ForeignKey ('client._id'), nullable = False)
 	descricaoProjeto = db.Column(db.String)
+	projeto = db.relationship('Vinculo', backref = 'project', lazy = True)
+
 
 	def __init__(self, codProjeto, nomeProjeto, clienteNome, descricaoProjeto):
 		self.codProjeto = codProjeto
@@ -225,7 +229,7 @@ class Projeto(db.Model):
 		self.clienteNome = clienteNome 
 		self.descricaoProjeto = descricaoProjeto
 
-db.create_all()
+#db.create_all()
 
 @app.route("/cadastraProjeto")
 def cadastraProjeto():
@@ -356,6 +360,85 @@ def atualizar_atividade(id):
 			return redirect(url_for("lista_atividades"))
 
 	return render_template("atualizar_atividade.html", atividade=atividade)
+
+###############################################
+
+#VINCULO PROJETOxFUNCIONARIO
+
+class Vinculo(db.Model):
+
+	__tablename__='vinculo'
+
+	_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	codProjetoxFuncionario = db.Column(db.String)
+	nomeFuncionario = db.Column(db.Integer, db.ForeignKey ('users._id'), nullable = False)
+	nomeProjeto = db.Column(db.Integer, db.ForeignKey ('project._id'), nullable = False)
+	
+
+
+	def __init__(self, codProjetoxFuncionario, nomeFuncionario, nomeProjeto):
+		self.codProjetoxFuncionario = codProjetoxFuncionario
+		self.nomeFuncionario = nomeFuncionario
+		self.nomeProjeto = nomeProjeto
+
+
+db.create_all()
+
+@app.route("/cadastraVinculo")
+def cadastraVinculo():
+	return render_template("cadastro_vinculo.html")
+
+@app.route("/cadastro_vinculo", methods=['GET', 'POST'])
+def cadastro_vinculo():
+	if request.method == "POST":
+		codProjetoxFuncionario = request.form.get("codProjetoxFuncionario")
+		nomeFuncionario = request.form.get("nomeFuncionario")
+		nomeProjeto = request.form.get("nomeProjeto")
+
+
+		if codProjetoxFuncionario and nomeFuncionario and nomeProjeto:
+			v = Vinculo(codProjetoxFuncionario, nomeFuncionario, nomeProjeto)
+			db.session.add(v)
+			db.session.commit()
+
+	return redirect (url_for("index"))
+
+@app.route("/lista_vinculo")
+def lista_vinculo():
+	vinculos = Vinculo.query.all()
+	return render_template("lista_vinculo.html", vinculos=vinculos)
+
+@app.route("/excluir_vinculo/<int:id>")
+def excluir_vinculo(id):
+	vinculos = Vinculo.query.filter_by(_id=id).first()
+
+	db.session.delete(vinculos)
+	db.session.commit()
+
+	vinculos = Vinculo.query.all()
+	return render_template("lista_vinculo.html", vinculos=vinculos)
+
+
+@app.route("/atualizar_vinculo/<int:id>", methods=['GET', 'POST'])
+def atualizar_vinculo(id):
+	vinculo = Vinculo.query.filter_by(_id=id).first()
+
+	if request.method == "POST":
+		codProjetoxFuncionario = request.form.get("codProjetoxFuncionario")
+		nomeFuncionario = request.form.get("nomeFuncionario")
+		nomeProjeto = request.form.get("nomeProjeto")
+
+
+		if nome and cpf:
+			vinculo.codProjetoxFuncionario = codProjetoxFuncionario
+			vinculo.nomeFuncionario = nomeFuncionario
+			vinculo.nomeProjeto = nomeProjeto
+
+			db.session.commit()
+
+			return redirect(url_for("lista_vinculo"))
+
+	return render_template("atualizar_vinculo.html", vinculo=vinculo)
 
 if __name__ == '__main__':
 	app.run(debug=True)
