@@ -1,36 +1,34 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset = "utf-8">
-		 		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-		 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
-		 		<link rel="stylesheet" href="static/stylesheets/index.css">
-		 		<link rel="stylesheet" type="text/css"  href="estilo.css" />
-
-	</head>
-
-	<body>
-		<h1>Cadastro de Vinculo Projetos x Funcionários</h1>
-		<hr>
-		<form action = "{{ url_for('cadastro_vinculo')}}" method="POST">
-			<table> 
-				<tr>
-					<td>Nome dos Funcionário: </td>
-					<td><input type="text" name= "nomeFuncionario" size="60"></td>
-					
-				</tr>
-				<tr> 
-					<td>Nome do Projeto:</td>
-					<td><input type="text" name= "nomeProjeto" size="60"></td>
-				</tr>
-
-			</table><br>
-			<a href="/index"><img src="static/images/voltar.png" alt="voltar" style="width:90px; height: 30px"> </a>
-			<input type="submit" value="Cadastrar" style="color: #0404B4">		
-
-
-		</form>
-
-	</body>
-
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="static/stylesheets/index.css">
+  <link rel="stylesheet" type="text/css" href="estilo.css" />
+</head>
+<body>
+  <h1>Vinculo Projetos x Funcionários</h1>
+  <hr>
+  <form action="{{ url_for('cadastro_vinculo')}}" method="POST">
+    <table>
+      <select name= "nomeProjeto">
+      <option hidden selected>Selecione um Projeto</option>
+      {% for project in projeto %}
+      <option>{{project.nomeProjeto}}</option>
+      {% endfor %}
+    </select>
+    <br>
+        <select name = "nomeFuncionario">
+      <option hidden selected>Selecione um Funcionário</option>
+      {% for users in pessoa %}
+      <option>{{users.nome}}</option>
+      {% endfor %}
+    </select>
+    </table>
+    <br>
+    <a href="/index"><img src="static/images/voltar.png" alt="voltar" style="width:90px; height: 30px"> </a>
+    <input type="submit" value="Cadastrar" style="color: #0404B4">
+  </form>
+</body>
 </html>

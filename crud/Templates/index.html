@@ -1,39 +1,168 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset = "utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  		<link rel="stylesheet" href="static/stylesheets/index.css">
- 		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-  		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet"> 
-		<title> Página Inicial </title>   		
-	</head>
-	<body>
-		<a href="{{ url_for ('logout')}}"> SAIR</a>
-		<h1> <img src="static/images/pagina.png" alt="cadastro" style="width:60px; height: 40px"> Seja Bem vindo! </h1>  
-		<hr>
-		<a href="{{ url_for ('cadastrar')}}"> <img src="static/images/cadastro.png" alt="cadastro" align="center" style="width:60px; height: 60px">  Cadastro de Funcionarios</a> 
-		<a href="{{ url_for ('cadastraClientes')}}"> <img src="static/images/cadastrocliente.png" alt="clientes" align="center" style="width:60px; height: 60px">  Cadastro de Clientes</a>
-		<br>
-		<a href="{{ url_for ('cadastraProjeto')}}"> <img src="static/images/cadastraprojetos.png" alt="projetos" align="center" style="width:80px; height: 80px">  Cadastro de Projetos</a>
-		<a href="{{ url_for ('cadastraAtividade')}}"> <img src="static/images/cadastroatividades.png" alt="projetos" align="center" style="width:80px; height: 80px">  Cadastro de Atividades</a>
-		<br>
-		<a href="{{ url_for ('cadastraVinculo')}}"> <img src="static/images/cadastroatividades.png" alt="projetos" align="center" style="width:80px; height: 80px">  Vinculo ProjetosxFuncionarios</a>
-		<hr>
-		<a href="{{ url_for ('lista')}}"> <img src="static/images/clientes.png" alt="clientes" align="center" style="width:60px; height: 60px">  Lista de Funcionários</a>
-		<a href="{{ url_for ('lista_clientes')}}"> <img src="static/images/listacli.png" alt="clientes" align="center" style="width:80px; height: 80px">  Lista de Clientes</a>
-		<br>
-		<a href="{{ url_for ('lista_projetos')}}"> <img src="static/images/listaProjetos.png" alt="projetos" align="center" style="width:60px; height: 80px">  Lista de Projetos</a>
-		<a href="{{ url_for ('lista_atividades')}}"> <img src="static/images/atividade.png" alt="lista_atividade" align="center" style="width:80px; height: 80px">  Lista de Atividades</a>
-		<br>
-		<a href="{{ url_for ('lista_vinculo')}}"> <img src="static/images/atividade.png" alt="lista_atividade" align="center" style="width:80px; height: 80px">  Lista ProjetoxFuncionarios</a>
-		<hr>
-		
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="static/stylesheets/index.css">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+	<title>Página Inicial</title>
+</head>
+<body>
+	<style>
+		.cadastros,
+		.listas{
+			margin: 15px 0px;
+			display: -webkit-inline-box;
+			padding: 20px 0px;
+			background-color: #f9fbfd;
+			min-width: 1240px;
+			max-width: 1240px;
+		}
 
-		<hr>
-		
+		.all-content{
+			text-align: center;
+		}
 
+		.field-side-area-cad{
+			display:  inline-block;
+			margin-left: 20px;
+			padding: 20px 40px;
+			text-align:  center;
+			background-color: #4FC3F7;
+			line-height: 25px;
+		}
 
-	</body>
+		.field-side-area-list{
+			display:  inline-block;
+			margin-left: 20px;
+			padding: 20px 40px;
+			text-align:  center;
+			background-color: #ECF74F;
+			line-height: 19px;
+		}
 
+		.content{
+			text-align:  center;
+		}
+
+		h1{
+			margin: 8px;
+			display: inline-flex;
+		}
+
+		img{
+			width:  90px;
+			height:  80px;
+		}
+
+		span{
+			color: white;
+			margin: 30px;
+			font-weight: bold;
+			font-size: 20px;
+		}
+
+		.field-area{
+			margin: 0px 20px;
+			border-left: 3px solid #4fc3f7 !important;
+			border: 3px solid #eee;
+			background-color:  #fff;
+			display: -webkit-box;
+			min-width: 824px;
+		}
+
+		#back-page{
+			float: left;
+		}
+
+		.menus-area{
+			text-align: -webkit-left;
+			display: grid;
+			width: 50%;
+			max-height: 124px;
+			min-height: 124px;
+		}
+
+		.menus-area a{
+			display: block;
+			margin: 4px 0px 0px 20px;
+			padding: 4px 0px 3px 0px;
+			color: #747c81;
+    	font-size: 15px;
+			text-decoration: none;
+		}
+
+		.exit-page{
+			float: left;
+			display: inline-block;
+			position: absolute;
+			left: 0;
+			margin: 10px;
+		}
+
+		.exit-page:hover{
+			cursor:pointer;
+		}
+
+		.exit-page img{
+			width: 45px;
+			height: 30px;
+			margin: 0px 0px
+		}
+
+		.exit-page span{
+			color: #747c81;
+			position: relative;
+			font-size: 15px;
+			margin: 0 6px;
+			vertical-align: super;
+		}
+
+	</style>
+	<div class="content">
+		<div class="exit-page" onclick="window.location.href='{{ url_for('logout') }}';">
+		<img src="static/images/doorexit.png" alt="Sair">
+		<span>SAIR</span>
+	</div>
+		<h1> <img src="static/images/pagina.png" alt="cadastro" style="width:60px; height: 40px"> Seja Bem vindo! </h1>
+	</div>
+	<div class="all-content">
+		<div class="cadastros">
+			<div class="field-side-area-cad">
+				<img src="static/images/cadastro.png" alt="cadastro" align="center">
+				<span>Cadastros</span>
+			</div>
+			<div class="field-area">
+				<div class="menus-area">
+						<a href="/cadastraProjeto">Cadastro de Projetos</a>
+						<a href="/cadastrar">Cadastrar usuários/Funcionários</a>
+						<a href="/cadastraClientes">Cadastro de Clientes</a>
+				</div>
+				<div class="menus-area">
+						<a href="/cadastraAtividade">Cadastro de Atividades</a>
+						<!-- Redirecionar para rota: '/cadastro_vinculo' -->
+						<a href="/cadastraVinculo">Cadastro de Vínculo</a>
+				</div>
+			</div>
+		</div>
+		<div class="listas">
+			<div class="field-side-area-list">
+				<img src="static/images/listacli.png" alt="Listagens" align="center">
+				<span>Listagens</span>
+			</div>
+			<div class="field-area">
+				<div class="menus-area">
+						<a href="/lista">Lista de Funcionários</a>
+						<a href="/lista_clientes">Lista de Clientes</a>
+						<a href="/lista_projetos">Lista de Projetos</a>
+						<a href="/lista_atividades">Lista de Atividades</a>
+				</div>
+				<div class="menus-area">
+						<a href="/lista_vinculo">Lista de Vinculos</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

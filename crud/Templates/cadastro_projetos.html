@@ -23,8 +23,13 @@
 				</tr>
 
 				<tr> 
-					<td>Nome do Cliente: </td>
-					<td><input type="text" name= "clienteNome"></td>
+
+					<select name = "nomeCliente">
+      					<option hidden selected>Selecione um Cliente</option>
+      					{% for client in clientes %}
+      					<option>{{client.nome}}</option>
+      					{% endfor %}
+    				</select>
 				</tr>
 				<tr> 
 					<td>Descrição do Projeto:</td>

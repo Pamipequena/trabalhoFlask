@@ -1,11 +1,12 @@
-
-
 from flask import Flask, render_template, request, url_for, redirect
-
+import os
 from flask_sqlalchemy import SQLAlchemy
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
 db = SQLAlchemy(app)
 
@@ -33,11 +34,8 @@ class Login(db.Model):
 
 db.create_all()
 
-
-    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.verify_password(form.password.data):
@@ -45,20 +43,19 @@ def login():
             return redirect(url_for('.login'))
         login_user(user, form.remember_me.data)
         return redirect(request.args.get('next') or url_for('talks.index'))
-    return render_template('login.html', form=form)
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    return redirect(url_for('/login.html'))
+	return redirect(url_for('loginPage'))
 
 @app.route("/")
-def loginn():
+def loginPage():
 	return render_template("login.html")
 
 @app.route("/index")
 def index():
 	return render_template("index.html")
-
 
 #########################
 
@@ -222,25 +219,25 @@ class Projeto(db.Model):
 	descricaoProjeto = db.Column(db.String)
 	projeto = db.relationship('Vinculo', backref = 'project', lazy = True)
 
-
 	def __init__(self, codProjeto, nomeProjeto, clienteNome, descricaoProjeto):
 		self.codProjeto = codProjeto
 		self.nomeProjeto = nomeProjeto
 		self.clienteNome = clienteNome 
 		self.descricaoProjeto = descricaoProjeto
 
-#db.create_all()
+db.create_all()
 
 @app.route("/cadastraProjeto")
 def cadastraProjeto():
-	return render_template("cadastro_projetos.html")
+	clientes = Clientes.query.all()
+	return render_template("cadastro_projetos.html", clientes = clientes)
 
 @app.route("/cadastro_projetos", methods=['GET', 'POST'])
 def cadastro_projetos():
 	if request.method == "POST":
 		codProjeto = request.form.get("codProjeto")
 		nomeProjeto = request.form.get("nomeProjeto")
-		clienteNome = request.form.get("clienteNome")
+		clienteNome = request.form.get('nomeCliente')
 		descricaoProjeto = request.form.get("descricaoProjeto")
 
 
@@ -295,7 +292,7 @@ def atualizar_projeto(id):
 
 class Atividade(db.Model):
 
-	__tablename__='atividad'
+	__tablename__='atividade'
 
 	_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	codAtividade = db.Column(db.String)
@@ -361,7 +358,8 @@ def atualizar_atividade(id):
 
 	return render_template("atualizar_atividade.html", atividade=atividade)
 
-###############################################
+
+	###############################################
 
 #VINCULO PROJETOxFUNCIONARIO
 
@@ -386,7 +384,9 @@ db.create_all()
 
 @app.route("/cadastraVinculo")
 def cadastraVinculo():
-	return render_template("cadastro_vinculo.html")
+	projeto = Projeto.query.all()
+	pessoa = Pessoa.query.all()
+	return render_template("cadastro_vinculo.html", projeto = projeto, pessoa = pessoa)
 
 @app.route("/cadastro_vinculo", methods=['GET', 'POST'])
 def cadastro_vinculo():
@@ -439,6 +439,30 @@ def atualizar_vinculo(id):
 			return redirect(url_for("lista_vinculo"))
 
 	return render_template("atualizar_vinculo.html", vinculo=vinculo)
+
+#########################
+#LANÇAMENTO DE HORAS 
+# 
+# To do - Montar tabela para armazenar datas do tipo datetime.
+
+class Hora(db.Model):
+	__tablename__ = "Horas"
+
+	_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	horaInicio = db.Column(db.DateTime)
+	horaFim = db.Column(db.DateTime)
+	qtdHoras = db.Column(db.DateTime)
+
+db.create_all()
+
+@app.route("/lancaHoras", methods=['GET', 'POST'])
+def lancaHoras():
+	projs = Projeto.query.all()
+	actvs = Atividade.query.all()
+
+	return render_template("lancaHoras.html", projetos = projs, atividades = actvs)
+
+
 
 if __name__ == '__main__':
 	app.run(debug=True)

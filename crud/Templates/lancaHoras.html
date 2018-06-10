@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="static/stylesheets/index.css">
+  <title>Lançamento de Horas</title>
+</head>
+<body>
+  <div class="params-lancamento">
+    <select>
+      <option hidden selected>Selecione um Projeto</option>
+      {% for projeto in projetos %}
+      <option>{{projeto.nomeProjeto}}</option>
+      {% endfor %}
+    </select>
+    <div class="dt-ini">
+      <span>Data/Hora Início</span>
+      <label for="data-inicio"></label>
+      <input type="text" id="data-inicio">
+      <label for="hora-inicio"></label>
+      <input type="text" id="hora-inicio">
+    </div>
+    <div class="dt-fim">
+      <span>Data/Hora Fim</span>
+      <label for="data-fim"></label>
+      <input type="text" id="data-fim">
+      <label for="hora-fim"></label>
+      <input type="text" id="hora-fim">
+    </div>
+    <div class="select-atividade">
+      <select>
+        <option hidden selected>Selecione uma Atividade</option>
+        {% for atividade in atividades %}
+        <option>{{atividade.descricao}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="buttons-area">
+    <div class="start-stop-area">
+      <button><span>Iniciar</span></button>
+      <button><span>Parar</span></button>
+    </div>
+    <span>Tempo Trabalhado: </span>
+    <div class="gravar-horas-area">
+      <button>Gravar</button>
+    </div>
+  </div>
+</body>
+</html>
