@@ -13,6 +13,7 @@
 		<table border="4" bgcolor="#CEECF5" align="center" rules="all" frame="border" cellpadding="20px" > 
 			<tr >
 				<td>ID</td>
+				<td>codProjetoxFuncionario</td>
 				<td>nomeFuncionario</td>
 				<td>nomeProjeto</td>
 				<td>Excluir</td>
@@ -21,6 +22,7 @@
 			{% for vinculo in vinculos %}
 			<tr>
 				<td>{{ vinculo._id  }}</td>
+				<td>{{ vinculo.codProjetoxFuncionario}}</td>
 				<td>{{ vinculo.nomeFuncionario}}</td>
 				<td>{{ vinculo.nomeProjeto}}</td>
 

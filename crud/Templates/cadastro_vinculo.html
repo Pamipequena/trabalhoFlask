@@ -12,6 +12,10 @@
   <hr>
   <form action="{{ url_for('cadastro_vinculo')}}" method="POST">
     <table>
+      <tr>
+          <td>Código do ProjetoxFuncionario: </td>
+          <td><input type="text" name= "codProjetoxFuncionario"></td>
+        </tr>
       <select name= "nomeProjeto">
       <option hidden selected>Selecione um Projeto</option>
       {% for project in projeto %}
